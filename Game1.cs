@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShootMeRiders.Model;
@@ -12,6 +14,21 @@ public class Game1 : Game
 
     private Background _backgroundTexture;
     private Knifeman _knifeman;
+    Viewport _viewport;
+    List<Knifeman> _enemies = new List<Knifeman>();
+
+    Vector2[] _layerPositions = new Vector2[3]
+    {
+        new Vector2(0, 350), // mais próxima da tela
+        new Vector2(0, 320),
+        new Vector2(0, 300)  // mais longe da tela
+    };
+
+    Random _random = new Random();
+    bool _rightToLeft = false; // define se o inimigo aparecerá da direita p esquerda
+    int _elapsedTime = 0; // tempo decorrido de jogo
+    int _spawTime = 1000; // tempo de spaw p novos inimigos
+
 
     public Game1()
     {
@@ -26,6 +43,7 @@ public class Game1 : Game
 
         base.Initialize();
         _knifeman.Initialize();
+   
     }
 
     protected override void LoadContent()
@@ -37,6 +55,7 @@ public class Game1 : Game
         _backgroundTexture = new Background(this);
         _knifeman = new Knifeman();
         _knifeman.LoadContent(Content);
+        _viewport = GraphicsDevice.Viewport;
     }
 
     protected override void Update(GameTime gameTime)
@@ -45,9 +64,45 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
+        float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        _elapsedTime += gameTime.ElapsedGameTime.Milliseconds;  
 
-        _knifeman.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+        if(_elapsedTime > _spawTime)
+        {
+            _elapsedTime = 0;
+            Knifeman newKnifeman = new Knifeman();
+            newKnifeman.Initialize();
+            newKnifeman.LoadContent(Content);
+            int _layer = _random.Next(0, 3); 
+            Vector2 _position = _layerPositions[_layer];
+            float _xVelocity = _random.Next(2, 9);// velocidade "aleatória" p cada inimigo
 
+            _rightToLeft = _random.Next(0, 10) > 5; //define "aleatoriamente" de q lado vem o inimigo
+            if(_rightToLeft)
+            {
+                _position.X = _viewport.Width;
+                _xVelocity *= -1;
+            }
+
+            newKnifeman.SetEnemyPosition(_xVelocity, _layer);
+            newKnifeman.Position = _position;
+
+            _enemies.Add(newKnifeman);
+        }
+
+        for(int i = 0;  i < _enemies.Count; i++)
+        {
+            _enemies[i].Update(deltaTime);
+
+            if (_enemies[i].IsEnable == false
+                || _enemies[i].Position.X < _viewport.X
+                || _enemies[i].Position.X > _viewport.Width)
+            {
+                _enemies.RemoveAt(i);
+            }
+        }
+
+     
         base.Update(gameTime);
     }
 
@@ -58,7 +113,12 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
         _backgroundTexture.Draw(_spriteBatch);
-        _knifeman.Draw(_spriteBatch);
+
+        for (int i = 0; i < _enemies.Count; i++)
+        {
+            _enemies[i].Draw(_spriteBatch);
+        }
+
         _spriteBatch.End();
         base.Draw(gameTime);
     }
