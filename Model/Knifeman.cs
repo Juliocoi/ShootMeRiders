@@ -18,11 +18,15 @@ public class Knifeman
     private Texture2D _texture;
 	private int _index;
 	private float _xVelocity = 2;
-	private int _layer = 3;
-    private Vector2 _position;
+    public Vector2 Position { get; set; }
     private Timer _timer;
+    private int _layer = 3;
+    private Vector2 _scale;
+    private SpriteEffects _orientation;
 
-	public void LoadContent(ContentManager content)
+    public bool IsEnable { get; protected set; } = true;
+
+    public void LoadContent(ContentManager content)
 	{
         _texture = content.Load<Texture2D>("Enemies/knifeman");
 		_runAnimation = new List<Rectangle>();
@@ -47,30 +51,62 @@ public class Knifeman
         _index = 0;
         _timer = new Timer();
         _timer.Start(IncrementIndex, 0.14f, true);
-        
     }
 
     public void Update(float deltaTime)
     {
-        _position += new Vector2(_xVelocity, 0);
+        //aumenta ou diminui o tamanho da imag de acordo com sua posição na tela.
+        if(_layer == 0)
+        {
+            _scale = new Vector2(2);
+        }
+        else if(_layer == 1)
+        {
+            _scale = new Vector2(1.5f);
+        }
+        else
+        {
+            _scale = new Vector2(1);
+        }
 
+        Position += new Vector2(_xVelocity, 0);
+
+        //inverte a direção horizontal da animação
+        if (_xVelocity < 0)
+        {
+            _orientation = SpriteEffects.FlipHorizontally;
+        }
+        else
+        {
+            _orientation = SpriteEffects.None;
+        }
+      
+        //Atualiza a animação pelo click do mouse
         MouseState mouseState = Mouse.GetState();
         if (mouseState.LeftButton == ButtonState.Pressed)
         {
-            Point mousePoint = new Point(mouseState.X, mouseState.Y);
-            if (GetBounds().Contains(mousePoint))
+            if (GetBounds().Contains(mouseState.Position))
             {
                 _index = 0;
                 CurrentAnimation = _deathAnimation;
                 _xVelocity = 0;
             }
         }
+
+        if(CurrentAnimation == _deathAnimation)
+        {
+            if(AnimationCompleted())
+            {
+                IsEnable = false;
+            }
+        }
+
         _timer.Update(deltaTime);
     }
 
     public Rectangle GetBounds()
     {
-        return new Rectangle((int)_position.X, (int)_position.Y, CurrentAnimation[_index].Width, CurrentAnimation[_index].Height);
+        return new Rectangle((int)Position.X, (int)Position.Y, CurrentAnimation[_index].Width, CurrentAnimation[_index].Height);
     }
 
     private void IncrementIndex()
@@ -78,7 +114,12 @@ public class Knifeman
         _index = (_index + 1) % CurrentAnimation.Count;
     }
 
-    private void SetEnemyPosition(float xPosition, int layer)
+    public bool AnimationCompleted()
+    {
+        return _index == CurrentAnimation.Count - 1;
+    }
+
+    public void SetEnemyPosition(float xPosition, int layer)
     {
         _xVelocity = xPosition;
         _layer = layer;
@@ -87,8 +128,7 @@ public class Knifeman
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        Console.WriteLine(_index);
-        spriteBatch.Draw(_texture, _position, CurrentAnimation[_index], Color.White);
+        spriteBatch.Draw(_texture, Position, CurrentAnimation[_index], Color.White,0, Vector2.Zero, _scale, _orientation,0);
     }
 
 }
