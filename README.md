@@ -6,8 +6,8 @@
 - [Tecnologias usadas](#Tecnologias)
   - [Monogame](#MonoGame)
   - [visual Studio](#Visual-Studio)
-- [Como jogar](#Como jogar)
-- [Alunos](#Alunos que participaram do projeto)
+- [Como jogar](#Como-jogar)
+- [Alunos](#Alunos-que-participaram-do-projeto)
 
 ## Resume
 
