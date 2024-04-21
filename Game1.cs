@@ -56,8 +56,6 @@ public class Game1 : Game
         _knifeman = new Knifeman();
         _knifeman.LoadContent(Content);
         _viewport = GraphicsDevice.Viewport;
-
-        Texture2D exitImage = Content.Load<Texture2D>("Background/sair-button");
     }
 
     protected override void Update(GameTime gameTime)
