@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks.Sources;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShootMeRiders.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ShootMeRiders;
 
 public class Game1 : Game
 {
+    public int score = 0; //declaração do contador
+
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-
+    private SpriteFont _font;//variavel fonts
     private Background _backgroundTexture;
     private Knifeman _knifeman;
     Viewport _viewport;
@@ -27,7 +31,7 @@ public class Game1 : Game
     Random _random = new Random();
     bool _rightToLeft = false; // define se o inimigo aparecerá da direita p esquerda
     int _elapsedTime = 0; // tempo decorrido de jogo
-    int _spawTime = 1000; // tempo de spaw p novos inimigos
+    int _spawTime = 1000; // tempo de spawn p novos inimigos
 
 
     public Game1()
@@ -56,6 +60,7 @@ public class Game1 : Game
         _knifeman = new Knifeman();
         _knifeman.LoadContent(Content);
         _viewport = GraphicsDevice.Viewport;
+        _font = Content.Load<SpriteFont>("Fonts/font");//chamada da fonte
     }
 
     protected override void Update(GameTime gameTime)
@@ -95,11 +100,16 @@ public class Game1 : Game
             _enemies[i].Update(deltaTime);
 
             if (_enemies[i].IsEnable == false
-                || _enemies[i].Position.X < _viewport.X
-                || _enemies[i].Position.X > _viewport.Width)
+               // || _enemies[i].Position.X < _viewport.X
+                //|| _enemies[i].Position.X > _viewport.Width
+                )// condições comentadas 
             {
+                
                 _enemies.RemoveAt(i);
+                score++;
             }
+
+            
         }
 
      
@@ -112,6 +122,9 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
+
+        _spriteBatch.DrawString(_font, "Score: " + score, new Vector2(2, 2), Color.White);
+
         _backgroundTexture.Draw(_spriteBatch);
 
         for (int i = 0; i < _enemies.Count; i++)
