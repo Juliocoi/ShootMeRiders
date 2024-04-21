@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShootMeRiders.Engine;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ShootMeRiders.Model;
 
@@ -14,7 +15,6 @@ public class Knifeman
 	List<Rectangle> _runAnimation;
 	List<Rectangle> _deathAnimation;
     public List<Rectangle> CurrentAnimation { get; protected set; }
-
     private Texture2D _texture;
 	private int _index;
 	private float _xVelocity = 2;
@@ -90,18 +90,28 @@ public class Knifeman
                 _index = 0;
                 CurrentAnimation = _deathAnimation;
                 _xVelocity = 0;
+
+                
             }
+            
         }
 
         if(CurrentAnimation == _deathAnimation)
         {
+            
             if(AnimationCompleted())
-            {
+            {   
+                
                 IsEnable = false;
+                
+
             }
+            
         }
 
         _timer.Update(deltaTime);
+       
+
     }
 
     public Rectangle GetBounds()
@@ -116,6 +126,7 @@ public class Knifeman
 
     public bool AnimationCompleted()
     {
+        
         return _index == CurrentAnimation.Count - 1;
     }
 
