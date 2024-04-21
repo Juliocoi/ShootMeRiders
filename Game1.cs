@@ -17,6 +17,8 @@ public class Game1 : Game
     Viewport _viewport;
     List<Knifeman> _enemies = new List<Knifeman>();
 
+    private Button _exitButton;
+
     Vector2[] _layerPositions = new Vector2[3]
     {
         new Vector2(0, 350), // mais próxima da tela
@@ -43,6 +45,8 @@ public class Game1 : Game
 
         base.Initialize();
         _knifeman.Initialize();
+
+        _exitButton.Position = new Point(350, 250);
    
     }
 
@@ -56,6 +60,9 @@ public class Game1 : Game
         _knifeman = new Knifeman();
         _knifeman.LoadContent(Content);
         _viewport = GraphicsDevice.Viewport;
+
+        Texture2D exitImage = Content.Load<Texture2D>("exit_button");
+        _exitButton = new Button(exitImage, Exit);
     }
 
     protected override void Update(GameTime gameTime)
@@ -102,6 +109,7 @@ public class Game1 : Game
             }
         }
 
+        _exitButton.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
      
         base.Update(gameTime);
     }
@@ -121,5 +129,7 @@ public class Game1 : Game
 
         _spriteBatch.End();
         base.Draw(gameTime);
+
+        _exitButton.Draw(_spriteBatch);
     }
 }
