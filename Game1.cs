@@ -107,6 +107,18 @@ public class Game1 : Game
                 
                 _enemies.RemoveAt(i);
                 score++;
+            }else 
+            if ( _enemies[i].Position.X < _viewport.X
+                || _enemies[i].Position.X > _viewport.Width)
+            {
+                _enemies.RemoveAt(i);
+
+                if(score > 0)
+                {
+                    score--;
+                }
+                
+
             }
 
             
