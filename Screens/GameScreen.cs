@@ -6,17 +6,22 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
 using ShootMeRiders.Model;
+using System.Reflection.Metadata;
 
 namespace ShootMeRiders.Screens
 {
     public class GameScreen
+
     {
+        public SpriteFont _font;//variavel fonts
+        public int score = 0;
         private ContentManager content;
         private Background _backgroundTexture;
         private Knifeman _knifeman;
         private Viewport _viewport;
         private List<Knifeman> _enemies = new List<Knifeman>();
         private Vector2[] _layerPositions = new Vector2[3]
+        
         {
             new Vector2(0, 350), // mais próxima da tela
             new Vector2(0, 320),
@@ -33,7 +38,9 @@ namespace ShootMeRiders.Screens
             _backgroundTexture = new Background(game);
             _knifeman = new Knifeman();
             _knifeman.LoadContent(content);
+
             _viewport = graphics.GraphicsDevice.Viewport;
+            _font = content.Load<SpriteFont>("Fonts/font");//chamada da fonte
         }
 
         public void Update(GameTime gameTime)
@@ -68,12 +75,22 @@ namespace ShootMeRiders.Screens
             {
                 _enemies[i].Update(deltaTime);
 
-                if (_enemies[i].IsEnable == false
-                    || _enemies[i].Position.X < _viewport.X
-                    || _enemies[i].Position.X > _viewport.Width)
+                if (_enemies[i].IsEnable == false)
+
                 {
                     _enemies.RemoveAt(i);
-                }
+                    score++;
+                }else if (_enemies[i].Position.X < _viewport.X 
+                || _enemies[i].Position.X > _viewport.Width)
+                {
+                   if(score > 0)
+                    {
+                        _enemies.RemoveAt(i);
+                        score--;
+                    }
+                  
+                }      
+
             }
         }
 
