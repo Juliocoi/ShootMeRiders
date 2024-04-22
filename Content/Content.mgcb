@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Background/Shot-Me-Riders.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Background/Shot-Me-Riders.png
+
 #begin Background/stage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -37,7 +49,7 @@
 /processorParam:TextureFormat=Color
 /build:Background/sunset-riders-background.png
 
-#begin Buttons/creditos-btn.png
+#begin Buttons/creditos-texture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/creditos-btn.png
+/build:Buttons/creditos-texture.png
 
-#begin Buttons/Jogar-btn.png
+#begin Buttons/Jogar-texture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/Jogar-btn.png
+/build:Buttons/Jogar-texture.png
 
-#begin Buttons/sair-btn.png
+#begin Buttons/sair-texture.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,7 +83,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/sair-btn.png
+/build:Buttons/sair-texture.png
 
 #begin Enemies/knifeman.png
 /importer:TextureImporter

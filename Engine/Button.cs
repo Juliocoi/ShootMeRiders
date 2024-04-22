@@ -6,15 +6,13 @@ using System;
 public class Button
 {
     private Texture2D _image;
-    private Vector2 _position;
     private Rectangle _bounds;
     private Action _onClick;
 
-    public Button(Texture2D image, Vector2 position, Action onClick)
+    public Button(Texture2D image, Rectangle bounds, Action onClick)
     {
         _image = image;
-        _position = position;
-        _bounds = new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height);
+        _bounds = bounds;
         _onClick = onClick;
     }
 
@@ -30,6 +28,6 @@ public class Button
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_image, _position, Color.White);
+        spriteBatch.Draw(_image, _bounds, Color.White);
     }
 }

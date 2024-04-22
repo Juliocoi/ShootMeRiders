@@ -13,13 +13,16 @@ public class MenuScreen
     private Button button1;
     private Button button2;
     private Button button3;
+    private Rectangle backgroundRectangle;
 
-    public MenuScreen(Texture2D backgroundTexture, Texture2D buttonTexture, Action action1, Action action2, Action action3, Vector2 position)
+    public MenuScreen(Texture2D backgroundTexture, Texture2D buttonTexturePlay, Texture2D buttonTextureCredits, Texture2D buttonTextureExit, Action actionPlay, Action actionCredits, Action actionExit, Viewport viewport)
     {
         this.backgroundTexture = backgroundTexture;
-        button1 = new Button(buttonTexture, position, action1);
-        button2 = new Button(buttonTexture, position + new Vector2(0, 50), action2);
-        button3 = new Button(buttonTexture, position + new Vector2(0, 100), action3);
+        this.backgroundRectangle = new Rectangle(0, 0, viewport.Width, viewport.Height);
+
+        button1 = new Button(buttonTexturePlay, new Rectangle(310, 200, 200, 50), actionPlay);
+        button2 = new Button(buttonTextureCredits, new Rectangle(310, 270, 200, 50), actionCredits);
+        button3 = new Button(buttonTextureExit, new Rectangle(310, 340, 200, 50), actionExit);
     }
 
     public void Update(GameTime gameTime)
@@ -31,7 +34,7 @@ public class MenuScreen
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(backgroundTexture, Vector2.Zero, Color.White);
+        spriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
 
         button1.Draw(spriteBatch);
         button2.Draw(spriteBatch);
