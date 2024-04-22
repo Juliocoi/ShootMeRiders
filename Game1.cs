@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShootMeRiders.Screens;
@@ -39,7 +39,7 @@ namespace ShootMeRiders
 
             // inicializa a screen creditos
             Texture2D backgroundTexture = Content.Load<Texture2D>("Background/Shot-Me-Riders");
-            SpriteFont creditsFont = Content.Load<SpriteFont>("Fonts/font");
+            SpriteFont creditsFont = Content.Load<SpriteFont>("Fonts/creditsFont");
            _creditsScreen = new CreditsScreen(backgroundTexture, creditsFont, _screenWidth, _screenHeight);
 
             base.Initialize();
