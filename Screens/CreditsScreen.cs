@@ -16,8 +16,6 @@ public class CreditsScreen
     {
         this.backgroundTexture = backgroundTexture;
         this.font = font;
-        // this._viewport = viewport; // Armazena o viewport passado no construtor
-        // this.backgroundRectangle = new Rectangle(0, 0, _viewport.Width, _viewport.Height);
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.backgroundRectangle = new Rectangle(0, 0, screenWidth, screenHeight);
@@ -33,7 +31,6 @@ public class CreditsScreen
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Begin();
         spriteBatch.Draw(backgroundTexture, backgroundRectangle, Color.White);
         
         // Centraliza o texto na tela usando _viewport
@@ -41,6 +38,5 @@ public class CreditsScreen
         Vector2 position = new Vector2((_viewport.Width - textSize.X) / 2, (_viewport.Height - textSize.Y) / 2);
         
         spriteBatch.DrawString(font, creditsText, position, Color.White);
-        spriteBatch.End();
     }
 }
