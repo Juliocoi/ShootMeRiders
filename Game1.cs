@@ -3,11 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ShootMeRiders.Screens;
 using System;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ShootMeRiders
 {
     public class Game1 : Game
-    {
+    {   
+         
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private GameScreen _gameScreen;
@@ -99,8 +101,9 @@ namespace ShootMeRiders
         protected override void Draw(GameTime gameTime)
          {
             GraphicsDevice.Clear(Color.Black);
-
+            
             _spriteBatch.Begin();
+            _spriteBatch.DrawString(_gameScreen._font, "Score: " + _gameScreen.score, new Vector2(2, 2), Color.White);
 
             if (_isInCredits)
             {
