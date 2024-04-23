@@ -39,10 +39,9 @@ namespace ShootMeRiders
 
             // inicializa a screen creditos
             Texture2D backgroundTexture = Content.Load<Texture2D>("Background/Shot-Me-Riders");
-            SpriteFont creditsFont = Content.Load<SpriteFont>("Fonts/creditsFont");
+            SpriteFont creditsFont = Content.Load<SpriteFont>("Fonts/font");
            _creditsScreen = new CreditsScreen(backgroundTexture, creditsFont, _screenWidth, _screenHeight);
 
-            base.Initialize();
         }
 
         // Método para inicializar o MenuScreen

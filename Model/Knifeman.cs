@@ -91,7 +91,6 @@ public class Knifeman
                 CurrentAnimation = _deathAnimation;
                 _xVelocity = 0;
 
-                
             }
             
         }
